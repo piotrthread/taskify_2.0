@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useFormik } from "formik";
 import db from "firebaseApp";
-import { useHistory } from "react-router";
 import Context from "context";
 
 const AddTask = () => {
