@@ -31,6 +31,9 @@ const LoginView = () => {
             case "auth/wrong-password":
               setError("Wrong password.");
               break;
+            default:
+              setError(err.message);
+              break;
           }
         });
     }

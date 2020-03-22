@@ -5,6 +5,10 @@ import Context from "context";
 import AddTask from "components/AddTask/AddTask";
 import Logo from "components/Logo/Logo";
 import ListWrapper from "components/TaskList/ListWrapper";
+import TaskListWrapper from "./TaskListWrapper";
+import Task from "./Task";
+import Info from "./Info";
+import Logout from "components/Logout/Logout";
 
 const TaskList = () => {
   const { user, tasks, setTasks, clearTasks } = useContext(Context);
@@ -19,27 +23,25 @@ const TaskList = () => {
       });
   }, []);
   return (
-    <>
+    <TaskListWrapper>
       <Logo>taskify</Logo>
-      {tasks ? (
+      {tasks.length !== 0 ? (
         <ListWrapper>
           {tasks.map((task, index) => (
-            <li key={index}>{task.title}</li>
+            <Task key={index}>{task.title}</Task>
           ))}
         </ListWrapper>
       ) : (
-        <p>LOADING...</p>
+        <Info>Add some Tasks.</Info>
       )}
       <AddTask />
-      <button
+      <Logout
         onClick={() => {
           db.auth().signOut();
           clearTasks();
         }}
-      >
-        Logout
-      </button>
-    </>
+      ></Logout>
+    </TaskListWrapper>
   );
 };
 

@@ -22,7 +22,7 @@ const RegisterView = () => {
     onSubmit: values => {
       db.auth()
         .createUserWithEmailAndPassword(values.email, values.password)
-        // .then(history.push("/"))
+        .then(history.push("/"))
         .catch(err => {
           switch (err.code) {
             case "auth/invalid-email":
@@ -33,6 +33,9 @@ const RegisterView = () => {
               break;
             case "auth/email-already-in-use":
               setError("Email is already in use.");
+              break;
+            default:
+              setError(err.message);
               break;
           }
         });

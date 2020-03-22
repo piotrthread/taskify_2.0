@@ -16,7 +16,7 @@ const StateProvider = props => {
         user: user,
         tasks: tasks,
         setUser: user => setUser(user),
-        setTasks: newTasks => setTasks([...tasks, ...newTasks]),
+        setTasks: newTasks => setTasks(newTasks),
         clearTasks: () => setTasks([])
       }}
     >
