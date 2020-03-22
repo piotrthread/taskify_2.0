@@ -5,7 +5,8 @@ const ListWrapper = styled.ul`
   background-color: #ffffff;
   padding: 35px;
   margin: 15px 0;
-  max-height: 50vh;
+  height: 50vh;
+  min-width: 250px;
   overflow: scroll;
   &::-webkit-scrollbar {
     display: none;
