@@ -19,7 +19,7 @@ const AddTask = () => {
           .collection("users")
           .doc(user)
           .collection("tasks")
-          .add({ title: values.task });
+          .add({ title: values.task, done: false, date: new Date() });
         resetForm();
       }
     }
