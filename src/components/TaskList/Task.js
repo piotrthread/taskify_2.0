@@ -5,6 +5,8 @@ const Task = styled.li`
   padding: 15px 0;
   border-bottom: 1px solid #404040;
   color: #404040;
+  display: flex;
+  justify-content: space-between;
   &:first-child {
     padding-top: 0;
   }

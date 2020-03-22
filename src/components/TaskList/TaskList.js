@@ -9,6 +9,7 @@ import TaskListWrapper from "./TaskListWrapper";
 import Task from "./Task";
 import Info from "./Info";
 import Logout from "components/Logout/Logout";
+import DeleteIcon from "components/Delete/DeleteIcon";
 
 const TaskList = () => {
   const { user, tasks, setTasks, clearTasks } = useContext(Context);
@@ -18,7 +19,7 @@ const TaskList = () => {
       .doc(user)
       .collection("tasks")
       .onSnapshot(res => {
-        const loaded = res.docs.map(task => task.data());
+        const loaded = res.docs.map(task => ({ ...task.data(), id: task.id }));
         setTasks(loaded);
       });
   }, []);
@@ -27,8 +28,20 @@ const TaskList = () => {
       <Logo>taskify</Logo>
       {tasks.length !== 0 ? (
         <ListWrapper>
-          {tasks.map((task, index) => (
-            <Task key={index}>{task.title}</Task>
+          {tasks.map(task => (
+            <Task key={task.id}>
+              {task.title}
+              <DeleteIcon
+                onClick={() => {
+                  db.firestore()
+                    .collection("users")
+                    .doc(user)
+                    .collection("tasks")
+                    .doc(task.id)
+                    .delete();
+                }}
+              />
+            </Task>
           ))}
         </ListWrapper>
       ) : (
@@ -40,7 +53,7 @@ const TaskList = () => {
           db.auth().signOut();
           clearTasks();
         }}
-      ></Logout>
+      />
     </TaskListWrapper>
   );
 };
